@@ -8,14 +8,12 @@ import java.util.Random;
  * FURB Universidade Regional de Blumenau<br>
  * Sistemas Distribuidos<br>
  * Trabalho 1<br>
- * Alunos: Vinícius / Bryan / ???
+ * Alunos: Vinícius / Bryan / Alexandre
  * 
  * @author VINICIUS
  */
 public class Main {
-    
-    
-    
+
     /**
      * Main
      * @param args 
@@ -90,5 +88,4 @@ public class Main {
             }
         }
     }
-    
 }

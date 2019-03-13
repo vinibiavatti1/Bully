@@ -4,7 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Utilidades gerais
+ * Utilidades gerais da aplicação.
  * @author VINICIUS
  */
 public class Util {

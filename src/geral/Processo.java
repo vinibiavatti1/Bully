@@ -3,8 +3,6 @@ package geral;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Processo de execução assíncrona com funções implementadas para
@@ -40,7 +38,8 @@ public class Processo implements Runnable {
     }
     
     /**
-     * Iniciar execução de Thread
+     * Iniciar execução de Thread<br>
+     * <code>new Thread(this).start();</code>
      */
     public void iniciarExecucao() {
         new Thread(this).start();
@@ -91,24 +90,27 @@ public class Processo implements Runnable {
     }
     
     /**
-     * Executar teste de ping ao processo
-     * @param p
+     * Executar teste de ping ao processo.
+     * @param processo
      * @return 
      */
-    public boolean ping(Processo p) {
-        return p.pong();
+    public boolean ping(Processo processo) {
+        Util.delay(Config.DELAY_ENVIAR_MSG);
+        return processo.pong();
     }
     
     /**
-     * Responder teste de ping
+     * Responder teste de ping.
      * @return 
      */
     public boolean pong() {
+        Util.delay(Config.DELAY_RECEBER_MSG);
         return isVivo();
     }
     
     /**
-     * Gerar ID para o processo
+     * Gerar ID para o processo. O ID é gerado aleatoriamente e não será igual
+     * a um ID existente.
      */
     public void gerarId() {
         boolean idValido = false;
@@ -146,6 +148,11 @@ public class Processo implements Runnable {
      */
     public boolean verificarCoordenadorVivo() {
         return getCoordenador().isVivo();
+    }
+    
+    @Override
+    public String toString() {
+        return "Processo " + getId() + (isCoordenador() ? "\t(C)" : "\t( )");
     }
 
     /*
@@ -186,11 +193,4 @@ public class Processo implements Runnable {
     public boolean isCoordenador() {
         return getCoordenador() == this;
     }
-
-    @Override
-    public String toString() {
-        return "Processo " + getId() + (isCoordenador() ? "\t(C)" : "\t( )");
-    }
-    
-    
 }
