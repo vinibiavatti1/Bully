@@ -21,7 +21,7 @@ public class Main {
     public static void main(String[] args) {
         
         System.out.println("Sistemas Distribuidos - Trabalho 1");
-        System.out.println("Alunos: Vinicius / Bryan / ???");
+        System.out.println("Alunos: Vinicius / Bryan / Alexandre");
         System.out.println("Legenda: (C) - Coordenador");
         System.out.println();
         
