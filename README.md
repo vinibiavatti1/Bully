@@ -6,7 +6,7 @@ A aplicaçao utiliza Threads para simular os processos em um cluster, portanto e
 ## Plataforma
 A plataforma <b>Java 8</b> foi utilizada para a simulação. O projeto pode ser aberto pela IDE Apache NetBeans.
 
-## JavaDoc
+## Javadoc
 A documentação do código está em formato Javadoc e pode ser encontrada em <a href="./dist/javadoc">aqui</a>. Basta baixar o repositório e executar abrir a página index.html no navegador.
 
 ## Integrantes
