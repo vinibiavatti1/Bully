@@ -1,9 +1,12 @@
 # FURB Algoritmo Bully
-Este trabalho representa o algoritmo Bully utilizado nos conceitos de Sistemas DistribuÌdos. O projeto consiste em uma simulaÁao de processos assÌncronos comandados por um processo pai (Coordenador). O prÛprio algoritmo verifica possÌveis desconexoes do processo pai, e realiza uma eleiÁao para promover o prÛximo processo coordenador que ser· o novo servidor. 
+Este trabalho representa o algoritmo Bully utilizado nos conceitos de Sistemas Distribu√≠dos. O projeto consiste em uma simula√ßao de processos ass√≠ncronos comandados por um processo pai (Coordenador). O pr√≥prio algoritmo verifica poss√≠veis desconex√µes do processo pai, e realiza uma elei√ß√£o para promover o pr√≥ximo processo coordenador que ser√° o novo servidor. 
 
-A aplicaÁao utiliza Threads para simular os processos em um cluster, portanto este nao È um programa oper·vel e utiliz·vel.
+A aplica√ßao utiliza Threads para simular os processos em um cluster, portanto este nao √© um programa oper√°vel e utiliz√°vel.
+
+## Plataforma
+A plataforma <b>Java 8</b> foi utilizada para a simula√ß√£o. O projeto pode ser aberto pela IDE Apache NetBeans.
 
 ## Integrantes
-VinÌcius Reif Biavatti
-Bryan Leite
+Vin√≠cius Reif Biavatti<br>
+Bryan Leite<br>
 Alexandre Thurow
