@@ -1,2 +1,9 @@
-# FURB-Algoritmo-Bully
-Trabalho de Sistemas DistribuÃ­dos da Universidade FURB
+# FURB Algoritmo Bully
+Este trabalho representa o algoritmo Bully utilizado nos conceitos de Sistemas Distribuídos. O projeto consiste em uma simulaçao de processos assíncronos comandados por um processo pai (Coordenador). O próprio algoritmo verifica possíveis desconexoes do processo pai, e realiza uma eleiçao para promover o próximo processo coordenador que será o novo servidor. 
+
+A aplicaçao utiliza Threads para simular os processos em um cluster, portanto este nao é um programa operável e utilizável.
+
+## Integrantes
+Vinícius Reif Biavatti
+Bryan Leite
+Alexandre Thurow
