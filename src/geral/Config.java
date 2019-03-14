@@ -2,7 +2,7 @@ package geral;
 
 /**
  * Configurações gerais da aplicação.
- * @author VINICIUS
+ * @author Vinícius R. Biavatti
  */
 public class Config {
     
