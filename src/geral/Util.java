@@ -5,7 +5,8 @@ import java.util.logging.Logger;
 
 /**
  * Utilidades gerais da aplicação.
- * @author VINICIUS
+ * 
+ * @author Vinícius R. Biavatti
  */
 public class Util {
     

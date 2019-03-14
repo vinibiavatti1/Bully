@@ -8,33 +8,45 @@ import java.util.Random;
  * Processo de execução assíncrona com funções implementadas para
  * tratar o algoritmo Bully.
  * 
- * @author VINICIUS
+ * @author Vinícius R. Biavatti
  */
 public class Processo implements Runnable {
 
+    /**
+     * Definir se processo está em execução ou não
+     */
     private boolean vivo = true;
-    private Processo coordenador = null; 
-    private List<Processo> listaProcessos = null;
+    
+    /**
+     * PID - Identificador do processo
+     */
     private int id;
+    
+    /**
+     * Referência ao Cluster
+     */
+    private Cluster cluster = null;
 
     /**
      * Construir Processo
-     * @param listaProcessos 
+     * @param cluster 
      */
-    public Processo(List<Processo> listaProcessos) {
-        this.setListaProcessos(listaProcessos);
+    public Processo(Cluster cluster) {
+        setCluster(cluster);
+        cluster.addProcesso(this);
         gerarId();
     }
     
     /**
-     * Construir Processo com Coordenador
-     * @param listaProcessos
-     * @param coordenador 
+     * Construir processo com controle de execução no construtor
+     * @param cluster
+     * @param iniciarExecucao 
      */
-    public Processo(List<Processo> listaProcessos, Processo coordenador) {
-        this.setListaProcessos(listaProcessos);
-        this.setCoordenador(coordenador);
-        gerarId();
+    public Processo(Cluster cluster, boolean iniciarExecucao){
+        this(cluster);
+        if(iniciarExecucao) {
+            this.iniciarExecucao();
+        }
     }
     
     /**
@@ -50,7 +62,10 @@ public class Processo implements Runnable {
         while(vivo) {
             Util.delay(Config.DELAY_EXECUCAO);
             if(!verificarCoordenadorVivo()) {
-                eleicao();
+                if(!getCluster().isEleicaoAtiva()) {
+                    getCluster().setEleicaoAtiva(true);
+                    eleicao();
+                }
             }
         }
     }
@@ -60,7 +75,7 @@ public class Processo implements Runnable {
      */
     public synchronized void eleicao() {
         List<Processo> processosVivos = new ArrayList<>();
-        for(Processo p : getListaProcessos()) {
+        for(Processo p : getCluster().getListaProcessos()) {
             if(p.getId() > getId()) {
                 boolean pong = ping(p);
                 if(pong) {
@@ -69,24 +84,20 @@ public class Processo implements Runnable {
             }
         }
         if(processosVivos.isEmpty()) {
-            if(isVivo()) {
-                setCoordenador(this);
-                atualizarCoordenadorProcessos(this);
-            }
+            getCluster().setCoordenador(this);
+            atualizarCoordenador(this);
+            getCluster().setEleicaoAtiva(false);
             return;
         }
         processosVivos.stream().forEach(Processo::eleicao);
     }
     
     /**
-     * Atualizar coordenador para os processos
+     * Atualizar coordenador no Cluster
      * @param novoCoordenador 
      */
-    public synchronized void atualizarCoordenadorProcessos(Processo novoCoordenador) {
-        for(Processo p : getListaProcessos()) {
-            if(p == this) continue;
-            p.setCoordenador(novoCoordenador);
-        }
+    public synchronized void atualizarCoordenador(Processo novoCoordenador) {
+        getCluster().setCoordenador(novoCoordenador);
     }
     
     /**
@@ -95,7 +106,6 @@ public class Processo implements Runnable {
      * @return 
      */
     public boolean ping(Processo processo) {
-        Util.delay(Config.DELAY_ENVIAR_MSG);
         return processo.pong();
     }
     
@@ -104,7 +114,6 @@ public class Processo implements Runnable {
      * @return 
      */
     public boolean pong() {
-        Util.delay(Config.DELAY_RECEBER_MSG);
         return isVivo();
     }
     
@@ -119,7 +128,7 @@ public class Processo implements Runnable {
             idValido = true;
             Random random = new Random();
             id = random.nextInt(Config.ID_MAX_PROCESSO);
-            for(Processo p : getListaProcessos()) {
+            for(Processo p : getCluster().getListaProcessos()) {
                 if(p.getId() == id) {
                     idValido = false;
                 }
@@ -135,7 +144,7 @@ public class Processo implements Runnable {
     public String toStringListaProcessos() {
         String resultado = "[";
         String virgula = "";
-        for(Processo p : getListaProcessos()) {
+        for(Processo p : getCluster().getListaProcessos()) {
             resultado += virgula + p.getId();
             virgula = ", ";
         }
@@ -147,7 +156,7 @@ public class Processo implements Runnable {
      * @return 
      */
     public boolean verificarCoordenadorVivo() {
-        return getCoordenador().isVivo();
+        return getCluster().getCoordenador().isVivo();
     }
     
     @Override
@@ -166,22 +175,6 @@ public class Processo implements Runnable {
         this.vivo = vivo;
     }
 
-    public Processo getCoordenador() {
-        return coordenador;
-    }
-
-    public void setCoordenador(Processo coordenador) {
-        this.coordenador = coordenador;
-    }
-
-    public List<Processo> getListaProcessos() {
-        return listaProcessos;
-    }
-
-    public void setListaProcessos(List<Processo> listaProcessos) {
-        this.listaProcessos = listaProcessos;
-    }
-
     public int getId() {
         return id;
     }
@@ -191,6 +184,14 @@ public class Processo implements Runnable {
     }
     
     public boolean isCoordenador() {
-        return getCoordenador() == this;
+        return getCluster().getCoordenador() == this;
+    }
+
+    public Cluster getCluster() {
+        return cluster;
+    }
+
+    public void setCluster(Cluster cluster) {
+        this.cluster = cluster;
     }
 }
