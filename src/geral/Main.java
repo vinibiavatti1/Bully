@@ -1,13 +1,18 @@
 package geral;
 
-import java.util.Random;
-
 /**
- * FURB Universidade Regional de Blumenau<br>
- * Sistemas Distribuidos<br>
- * Trabalho 1<br>
- * Alunos: Vinícius / Bryan / Alexandre
- *
+ * <b>FURB Universidade Regional de Blumenau</b><br>
+ * Sistemas Distribuidos - Trabalho 1<br>
+ * Professor: Aurélio Faustino Hoppe<br>
+ * Alunos:
+ * <ul>
+ *   <li>Vinícius Reif Biavatti</li>
+ *   <li>Bryan Leite</li>
+ *   <li>Alexandre Thurow</li>
+ * </ul>
+ * 
+ * Classe de criação de eventos sob processos no Cluster.
+ * 
  * @author Vinícius R. Biavatti
  */
 public class Main {
