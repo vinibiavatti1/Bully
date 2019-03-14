@@ -1,6 +1,7 @@
 package geral;
 
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -59,6 +60,26 @@ public class Cluster {
      */
     public void addProcesso(Processo p) {
         getListaProcessos().add(p);
+    }
+    
+    /**
+     * Matar processo aleatório
+     * @param incluirCoordenador 
+     */
+    public void matarProcessoAleatorio(boolean incluirCoordenador) {
+        boolean matou = false;
+        do {
+            Processo p = getListaProcessos().get(new Random().nextInt(getListaProcessos().size()));
+            if(p.isCoordenador()) {
+                if(incluirCoordenador) {
+                    p.setVivo(false);
+                    matou = true;
+                }
+            } else {
+                p.setVivo(false);
+                matou = true;
+            }
+        } while (!matou);
     }
     
     /**

@@ -74,7 +74,7 @@ public class Main {
             public void run() {
                 for (;;) {
                     Util.delay(Config.DELAY_MATAR_PROCESSO);
-
+                    cluster.matarProcessoAleatorio(false);
                 }
             }
         }).start();
