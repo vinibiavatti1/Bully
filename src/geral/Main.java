@@ -47,6 +47,7 @@ public class Main {
                 }
             }
         }).start();
+        
         /*
          * Thread para matar coordenador
          */
@@ -59,6 +60,7 @@ public class Main {
                 }
             }
         }).start();
+        
         /*
          * Thread para matar um processo aleatório
          */
@@ -71,6 +73,7 @@ public class Main {
                 }
             }
         }).start();
+        
         /*
          * Thread para imprimir situação dos processos
          */
