@@ -98,12 +98,6 @@ public class Main {
                 }
             }
         }).start();
-
-        
-        /*
-         * Loop Principal
-         */
-        for(;;) {}
     }
 
 }
