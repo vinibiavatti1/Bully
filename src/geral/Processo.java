@@ -1,6 +1,8 @@
 package geral;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -16,6 +18,11 @@ public class Processo implements Runnable {
      * Definir se processo está em execução ou não
      */
     private boolean vivo = true;
+
+    /**
+     * Formatador de Data para informação de ações
+     */
+    private SimpleDateFormat formatter;
     
     /**
      * PID - Identificador do processo
@@ -35,6 +42,7 @@ public class Processo implements Runnable {
         setCluster(cluster);
         cluster.addProcesso(this);
         gerarId();
+        formatter = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
     }
     
     /**
@@ -44,9 +52,9 @@ public class Processo implements Runnable {
      */
     public Processo(Cluster cluster, boolean iniciarExecucao){
         this(cluster);
-        if(iniciarExecucao) {
-            this.iniciarExecucao();
-        }
+//        if(iniciarExecucao) {
+//            this.iniciarExecucao();
+//        }
     }
     
     /**
@@ -63,6 +71,7 @@ public class Processo implements Runnable {
             Util.delay(Config.DELAY_EXECUCAO);
             if(!verificarCoordenadorVivo()) {
                 if(!getCluster().isEleicaoAtiva()) {
+                    System.out.println(formatter.format(new Date()) + " - Iniciou um processo de eleição.");
                     getCluster().setEleicaoAtiva(true);
                     eleicao();
                 }
@@ -97,6 +106,7 @@ public class Processo implements Runnable {
      * @param novoCoordenador 
      */
     public synchronized void atualizarCoordenador(Processo novoCoordenador) {
+        System.out.println(formatter.format(new Date()) + " - Novo coordenador com o PID:" + novoCoordenador.getId());
         getCluster().setCoordenador(novoCoordenador);
     }
     
@@ -156,6 +166,7 @@ public class Processo implements Runnable {
      * @return 
      */
     public boolean verificarCoordenadorVivo() {
+        System.out.println(formatter.format(new Date()) + " - Processo verifica se coordenador está vivo.");
         return getCluster().getCoordenador().isVivo();
     }
     
