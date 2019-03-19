@@ -67,22 +67,21 @@ public class Cluster {
 
     public void getCoordenadorVivo() {
         boolean notifyed = false;
-        if (getListaProcessos().size() < 2) {
-            notifyed = true;
-        }
-        do {
-            Processo p = getListaProcessos().get(new Random().nextInt(getListaProcessos().size()));
-            if(!p.isCoordenador()) {
-                if (!p.verificarCoordenadorVivo()) {
-                    if(!isEleicaoAtiva()) {
-                        System.out.println(formatter.format(new Date()) + " - Iniciou um processo de eleição.");
-                        setEleicaoAtiva(true);
-                        p.eleicao();
+        if (getListaProcessos().size() >= 2) {
+            do {
+                Processo p = getListaProcessos().get(new Random().nextInt(getListaProcessos().size()));
+                if (!p.isCoordenador()) {
+                    if (!p.verificarCoordenadorVivo()) {
+                        if (!isEleicaoAtiva()) {
+                            System.out.println(formatter.format(new Date()) + " - Iniciou um processo de eleição.");
+                            setEleicaoAtiva(true);
+                            p.eleicao();
+                        }
                     }
+                    notifyed = true;
                 }
-                notifyed = true;
-            }
-        } while (!notifyed);
+            } while (!notifyed);
+        }
     }
     
     /**

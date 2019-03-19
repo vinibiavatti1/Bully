@@ -12,7 +12,7 @@ import java.util.Random;
  * 
  * @author Vinícius R. Biavatti
  */
-public class Processo implements Runnable {
+public class Processo {
 
     /**
      * Definir se processo está em execução ou não
@@ -52,31 +52,6 @@ public class Processo implements Runnable {
      */
     public Processo(Cluster cluster, boolean iniciarExecucao){
         this(cluster);
-//        if(iniciarExecucao) {
-//            this.iniciarExecucao();
-//        }
-    }
-    
-    /**
-     * Iniciar execução de Thread<br>
-     * <code>new Thread(this).start();</code>
-     */
-    public void iniciarExecucao() {
-        new Thread(this).start();
-    }
-
-    @Override
-    public void run() {
-        while(vivo) {
-            Util.delay(Config.DELAY_EXECUCAO);
-            if(!verificarCoordenadorVivo()) {
-                if(!getCluster().isEleicaoAtiva()) {
-                    System.out.println(formatter.format(new Date()) + " - Iniciou um processo de eleição.");
-                    getCluster().setEleicaoAtiva(true);
-                    eleicao();
-                }
-            }
-        }
     }
     
     /**
